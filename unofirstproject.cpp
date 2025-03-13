@@ -95,7 +95,7 @@ void drawcard2(node*(&player2)[30],int&value2,int numcards)
 void removecard1(node*(&player1)[30],int e)
 {
   player1[e]->colour="deleted";
-  player1[e]->num=0;
+  player1[e]->num=1000;
   player1[e]->operation="deleted";
 value1--;
 }
@@ -103,7 +103,7 @@ value1--;
 void removecard2(node*(&player2)[30],int e)
 {
   player2[e]->colour="deleted";
-  player2[e]->num=0;
+  player2[e]->num=1000;
   player2[e]->operation="deleted";
   value2--;
 
@@ -243,6 +243,7 @@ void wildcard1()
         discard->operation=player1[h]->operation;
        discard->colour=player1[h]->colour;
       discard->num=player1[h]->num;
+      removecard1(player1,h);
       std::cout<<"done"<<std::endl;
         break;
 
@@ -351,15 +352,14 @@ count++;
  if(i2==99)
  {
      drawcard2(player2,value2,1);
-     //Player2();
       break;
  }
  
  if( player2[i2]->operation=="wildcard_")
  {
      
-         removecard2(player2,i2);
          drawcard1(player1,value1,4);
+         removecard2(player2,i2);
          ts++;
         continue;
  }
@@ -368,8 +368,8 @@ count++;
  
  if(player2[i2]->operation=="wild")
     {
-     removecard2(player2,i2);
     wildcard2();
+    removecard2(player2,i2);
     break;
     }
  
@@ -409,7 +409,7 @@ count++;
      discard->operation=player2[i2]->operation;
      discard->colour=player2[i2]->colour;
      discard->num=player2[i2]->num;
-     removecard1(player2,i2);
+     removecard2(player2,i2);
      break;
   }
  
